@@ -1,0 +1,30 @@
+version: "3.1"
+
+stories:
+
+# ---------- BALANCE ----------
+
+# Two-step flow: user asks to check balance → bot asks type → user provides type → custom action
+- story: balance ask then provide
+  steps:
+  - intent: check_balance
+  - action: utter_ask_account_type
+  - intent: provide_account_type
+  - action: action_check_balance
+
+# Direct flow: user specifies account type in the initial message
+- story: direct balance check
+  steps:
+  - intent: check_balance
+    entities:
+      - account_type: savings
+  - action: action_check_balance
+
+- story: direct current balance check
+  steps:
+  - intent: check_balance
+    entities:
+      - account_type: current
+  - action: action_check_balance
+
+

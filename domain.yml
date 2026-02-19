@@ -1,0 +1,72 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - contact_support
+  - check_balance
+  - provide_account_type
+  - loan_inquiry
+  - provide_loan_type
+  - account_opening
+  - block_card
+  - transaction_status
+
+entities:
+  - account_type
+  - loan_type
+
+
+slots:
+  account_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: account_type
+
+  loan_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: loan_type
+
+actions:
+  - action_check_balance
+  - action_loan_info
+
+responses:
+
+  utter_greet:
+    - text: "Hello! Welcome to ABC Bank. How can I help you today?"
+
+  utter_goodbye:
+    - text: "Thank you for using ABC Bank. Have a nice day!"
+
+  utter_contact_support:
+    - text: "Please contact customer care at 1800-123-456."
+
+  utter_ask_account_type:
+    - text: "Please choose account type: Savings or Current."
+
+  utter_ask_loan_type:
+    - text: "Which loan do you need? Personal, Home, Car, or Education?"
+
+  utter_account_opening:
+    - text: |
+        To open an account, bring:
+        - Aadhaar
+        - PAN
+        - Photo
+        - Address Proof
+
+  utter_card_blocked:
+    - text: "Your card has been blocked successfully."
+
+  utter_transaction_result:
+    - text: "Your last transaction of ₹5,000 was successful."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

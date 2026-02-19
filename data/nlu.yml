@@ -1,0 +1,243 @@
+version: "3.1"
+
+nlu:
+
+# -------- BASIC --------
+
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey
+    - good morning
+    - good evening
+    - hi there
+    - hello sir
+    - hello madam
+    - hey bank
+    - hi support
+    - hello team
+    - good afternoon
+    - hey buddy
+    - hi bot
+    - hello friend
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - thanks bye
+    - bye bye
+    - good night
+    - see you
+    - exit
+    - quit
+    - close chat
+    - end chat
+    - talk later
+    - leaving now
+    - thanks goodbye
+    - finish
+
+- intent: contact_support
+  examples: |
+    - contact customer care
+    - talk to support
+    - call bank
+    - helpline number
+    - customer service
+    - talk to agent
+    - help desk
+    - speak to staff
+    - real person
+    - human support
+    - bank help
+    - customer care please
+    - support team
+    - connect to bank
+    - need help
+
+
+# -------- BANKING --------
+
+- intent: check_balance
+  examples: |
+    - check my balance
+    - show my balance
+    - what is my balance
+    - how much money do I have
+    - check account balance
+    - balance enquiry
+    - check bank balance
+    - show available balance
+    - check [savings](account_type) balance
+    - check [current](account_type) balance
+    - show [savings](account_type) account balance
+    - show [current](account_type) account balance
+    - what is my [savings](account_type) balance
+    - what is my [current](account_type) balance
+    - I want to see my balance
+
+
+- intent: provide_account_type
+  examples: |
+    - [savings](account_type)
+    - [savings](account_type) account
+    - [current](account_type)
+    - [current](account_type) account
+    - i want to check [savings](account_type)
+    - i want to check [current](account_type)
+    - [savings](account_type) please
+    - [current](account_type) please
+    - the [savings](account_type) one
+    - the [current](account_type) one
+    - my [savings](account_type) account
+    - my [current](account_type) account
+    - select [savings](account_type)
+    - select [current](account_type)
+
+
+- intent: loan_inquiry
+  examples: |
+    - I need a loan
+    - want loan
+    - loan details
+    - loan inquiry
+    - loan enquiry
+    - apply for loan
+    - loan information
+    - get loan
+    - bank loan
+    - loan interest
+    - loan process
+    - I am interested in a loan
+    - do you have loans
+    - loan options please
+    - available loans
+    - what loans do you offer
+    - tell me about loans
+    - loan schemes
+    - loan types available
+    - I need a [personal](loan_type) loan
+    - I want a [home](loan_type) loan
+    - I need a [car](loan_type) loan
+    - I want an [education](loan_type) loan
+    - I want an [educational](loan_type) loan
+    - [personal](loan_type) loan details
+    - [home](loan_type) loan details
+    - [car](loan_type) loan details
+    - [education](loan_type) loan details
+    - [educational](loan_type) loan details
+    - [personal](loan_type) loan enquiry
+    - [home](loan_type) loan enquiry
+    - [car](loan_type) loan enquiry
+    - [education](loan_type) loan enquiry
+    - [personal](loan_type) loan information
+    - [home](loan_type) loan information
+    - [car](loan_type) loan information
+    - [education](loan_type) loan information
+    - tell me about [personal](loan_type) loan
+    - tell me about [home](loan_type) loan
+    - tell me about [car](loan_type) loan
+    - tell me about [education](loan_type) loan
+    - [home](loan_type) loan interest
+    - [car](loan_type) loan interest
+    - [personal](loan_type) loan interest
+    - [education](loan_type) loan interest
+    - apply for [personal](loan_type) loan
+    - apply for [home](loan_type) loan
+    - apply for [car](loan_type) loan
+    - apply for [education](loan_type) loan
+
+
+- intent: provide_loan_type
+  examples: |
+    - [personal](loan_type)
+    - [home](loan_type)
+    - [car](loan_type)
+    - [education](loan_type)
+    - [educational](loan_type)
+    - i choose [personal](loan_type)
+    - i choose [home](loan_type)
+    - i choose [car](loan_type)
+    - i choose [education](loan_type)
+    - [personal](loan_type) loan
+    - [home](loan_type) loan
+    - [car](loan_type) loan
+    - [education](loan_type) loan
+    - [educational](loan_type) loan
+    - [personal](loan_type) please
+    - [home](loan_type) please
+    - [car](loan_type) please
+    - [education](loan_type) please
+    - the [personal](loan_type) one
+    - the [home](loan_type) one
+    - the [car](loan_type) one
+    - the [education](loan_type) one
+    - select [personal](loan_type)
+    - select [home](loan_type)
+    - select [car](loan_type)
+    - select [education](loan_type)
+    - [homeloan](loan_type:home)
+    - [carloan](loan_type:car)
+    - [personalloan](loan_type:personal)
+    - [educationloan](loan_type:education)
+    - [educationalloan](loan_type:educational)
+
+
+
+- intent: account_opening
+  examples: |
+    - open account
+    - create account
+    - new account
+    - open savings account
+    - open current account
+    - start account
+    - register account
+    - bank account opening
+    - create bank account
+    - open salary account
+    - account creation
+    - want new account
+    - open online account
+    - start banking
+    - open account now
+
+- intent: block_card
+  examples: |
+    - block my card
+    - lost my card
+    - card stolen
+    - freeze card
+    - cancel card
+    - stop card
+    - disable card
+    - block debit card
+    - block credit card
+    - atm card lost
+    - card missing
+    - secure card
+    - block atm
+    - card problem
+    - card blocked
+
+- intent: transaction_status
+  examples: |
+    - check transaction
+    - payment status
+    - transaction failed
+    - pending payment
+    - money not received
+    - transfer status
+    - last transaction
+    - recent payment
+    - bank transfer
+    - transaction report
+    - payment failed
+    - check transfer
+    - transaction enquiry
+    - payment pending
+    - transfer problem
+    - transaction status

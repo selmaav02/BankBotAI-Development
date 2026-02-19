@@ -1,0 +1,53 @@
+version: "3.1"
+
+rules:
+
+- rule: greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: support
+  steps:
+  - intent: contact_support
+  - action: utter_contact_support
+
+- rule: block card
+  steps:
+  - intent: block_card
+  - action: utter_card_blocked
+
+- rule: account opening
+  steps:
+  - intent: account_opening
+  - action: utter_account_opening
+
+- rule: transaction
+  steps:
+  - intent: transaction_status
+  - action: utter_transaction_result
+
+- rule: loan inquiry ask
+  condition:
+  - slot_was_set:
+    - loan_type: null
+  steps:
+  - intent: loan_inquiry
+  - action: utter_ask_loan_type
+
+- rule: loan inquiry with type
+  steps:
+  - intent: loan_inquiry
+    entities:
+    - loan_type
+  - action: action_loan_info
+
+- rule: provide loan type
+  steps:
+  - intent: provide_loan_type
+  - action: action_loan_info
