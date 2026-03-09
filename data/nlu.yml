@@ -58,6 +58,141 @@ nlu:
     - connect to bank
     - need help
 
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - sure
+    - of course
+    - yes please
+    - yep
+    - ok
+    - okay
+    - yes I do
+    - absolutely
+    - that's right
+    - correct
+    - definitely
+    - yes sure
+    - right
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - no thanks
+    - not really
+    - no I don't
+    - never
+    - I don't think so
+    - not interested
+    - no way
+    - nah
+    - not now
+    - no thank you
+    - decline
+    - negative
+    - not at all
+
+- intent: thank_you
+  examples: |
+    - thank you
+    - thanks
+    - thanks a lot
+    - thank you so much
+    - thanks for the help
+    - appreciate it
+    - thanks buddy
+    - thank you very much
+    - many thanks
+    - thanks for your help
+    - cheers
+    - great thanks
+    - wonderful thanks
+    - thanks a bunch
+    - much appreciated
+
+
+# -------- CHITCHAT --------
+
+- intent: ask_bot_name
+  examples: |
+    - what's your name
+    - who are you
+    - what should I call you
+    - what do they call you
+    - tell me your name
+    - what are you called
+    - do you have a name
+    - your name please
+    - may I know your name
+    - what is your name
+
+- intent: ask_weather
+  examples: |
+    - how's the weather today
+    - what's the weather like
+    - will it rain today
+    - is it sunny outside
+    - tell me the weather
+    - weather forecast
+    - what is the weather today
+    - is it cold today
+    - how is the weather
+    - weather update
+
+- intent: ask_howdoing
+  examples: |
+    - how are you
+    - how are you doing
+    - how's it going
+    - are you doing well
+    - how do you feel
+    - what's up
+    - how have you been
+    - are you okay
+    - how is life
+    - how are things
+
+- intent: ask_whatcanyoudo
+  examples: |
+    - what can you do
+    - what do you do
+    - what are your capabilities
+    - how can you help me
+    - what services do you offer
+    - what are you able to do
+    - tell me what you can do
+    - what help can you provide
+    - what are your features
+    - what kind of help do you offer
+
+- intent: ask_joke
+  examples: |
+    - tell me a joke
+    - make me laugh
+    - say something funny
+    - do you know any jokes
+    - tell a joke
+    - got any jokes
+    - humor me
+    - tell me something funny
+    - a joke please
+    - lighten the mood
+
+- intent: ask_time
+  examples: |
+    - what time is it
+    - tell me the time
+    - current time
+    - what's the time now
+    - do you know the time
+    - time please
+    - what is the time
+    - can you tell time
+    - what's the clock say
+    - time now
+
 
 # -------- BANKING --------
 
@@ -78,6 +213,8 @@ nlu:
     - what is my [savings](account_type) balance
     - what is my [current](account_type) balance
     - I want to see my balance
+    - I want to check my account balance
+    - can I see my balance
 
 
 - intent: provide_account_type
@@ -96,6 +233,24 @@ nlu:
     - my [current](account_type) account
     - select [savings](account_type)
     - select [current](account_type)
+
+- intent: provide_account_number
+  examples: |
+    - my account number is [458293746](account_number)
+    - [458293746](account_number)
+    - account number [123456789](account_number)
+    - it is [987654321](account_number)
+    - [1234567890](account_number)
+    - the account number is [246813579](account_number)
+    - here is my account number [135792468](account_number)
+    - [111222333](account_number)
+    - my account [999888777](account_number)
+    - number is [555666777](account_number)
+    - account [112233445](account_number)
+    - [998877665](account_number) is my account number
+    - its [667788990](account_number)
+    - [123123123](account_number) please
+    - my number [456456456](account_number)
 
 
 - intent: loan_inquiry
@@ -241,3 +396,103 @@ nlu:
     - payment pending
     - transfer problem
     - transaction status
+
+- intent: fund_transfer
+  examples: |
+    - I want to transfer money
+    - send money to another account
+    - transfer fund
+    - make a bank transfer
+    - send money
+    - transfer amount to account
+    - move money to my friend
+    - online fund transfer
+    - transfer money to my friend
+    - transfer cash
+    - how can I transfer money
+    - how to transfer money
+
+- intent: branch_locator
+  examples: |
+    - find a branch near me
+    - where is the nearest branch
+    - locate a branch
+    - find nearest bank branch
+    - bank branch near me
+    - nearest bank office
+    - show nearby branche
+    - where can I find a branch
+    - closest branch
+    - where is the branch
+    - branch location
+    - find a branch
+
+- intent: atm_locator
+  examples: |
+    - nearest atm
+    - atm near me
+    - find atm
+    - locate an atm
+    - where is the nearest atm
+    - closest atm
+    - show nearby atm
+    - where is atm
+    - atm location
+    - atm finder
+    - show atm
+    - atm address
+
+- intent: interest_rate_query
+  examples: |
+    - what is the interest rate
+    - loan interest rate
+    - savings interest rate
+    - current interest rates
+    - interest for fixed deposit
+    - fd interest rate
+    - rate of interest
+    - bank interest details
+    - how much interest
+    - interest percentage
+
+- intent: kyc_update
+  examples: |
+    - how to update kyc
+    - kyc update process
+    - change kyc details
+    - kyc verification
+    - update documents for kyc
+    - kyc correction
+    - modify kyc
+    - submit kyc again
+    - kyc help
+
+
+# -------- LOOKUP TABLES --------
+
+- lookup: account_type
+  examples: |
+    - savings
+    - current
+
+- lookup: loan_type
+  examples: |
+    - personal
+    - home
+    - car
+    - education
+    - educational
+
+# -------- SYNONYMS --------
+
+- synonym: savings
+  examples: |
+    - saving
+    - savinga
+    - savingss
+
+- synonym: current
+  examples: |
+    - currnet
+    - curent
+    - currant

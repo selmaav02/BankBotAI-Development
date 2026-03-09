@@ -4,17 +4,35 @@ intents:
   - greet
   - goodbye
   - contact_support
+  - affirm
+  - deny
+  - thank_you
   - check_balance
   - provide_account_type
+  - provide_account_number
   - loan_inquiry
   - provide_loan_type
   - account_opening
   - block_card
   - transaction_status
+  - fund_transfer
+  - branch_locator
+  - atm_locator
+  - interest_rate_query
+  - kyc_update
+  - nlu_fallback
+  - ask_bot_name
+  - ask_weather
+  - ask_howdoing
+  - ask_whatcanyoudo
+  - ask_joke
+  - ask_time
+
 
 entities:
   - account_type
   - loan_type
+  - account_number
 
 
 slots:
@@ -32,23 +50,35 @@ slots:
       - type: from_entity
         entity: loan_type
 
-actions:
-  - action_check_balance
-  - action_loan_info
+  account_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: account_number
+
+actions: []
 
 responses:
 
   utter_greet:
     - text: "Hello! Welcome to ABC Bank. How can I help you today?"
+    - text: "Hi there! Welcome to ABC Bank. What can I assist you with?"
+    - text: "Good day! I'm your ABC Bank assistant. How may I help you?"
 
   utter_goodbye:
     - text: "Thank you for using ABC Bank. Have a nice day!"
+    - text: "Goodbye! It was great helping you. Have a wonderful day!"
+    - text: "See you later! Feel free to come back anytime."
 
   utter_contact_support:
-    - text: "Please contact customer care at 1800-123-456."
+    - text: "Please contact customer care at 1800-123-456. Our support team is available 24/7."
 
   utter_ask_account_type:
     - text: "Please choose account type: Savings or Current."
+
+  utter_ask_account_number:
+    - text: "I'd be happy to check your balance. Please provide your account number."
 
   utter_ask_loan_type:
     - text: "Which loan do you need? Personal, Home, Car, or Education?"
@@ -62,11 +92,117 @@ responses:
         - Address Proof
 
   utter_card_blocked:
-    - text: "Your card has been blocked successfully."
+    - text: "Your card has been blocked successfully. For any further concerns, please call 1800-123-456."
 
   utter_transaction_result:
     - text: "Your last transaction of ₹5,000 was successful."
 
+  utter_fund_transfer:
+    - text: |
+        To transfer funds, please follow these steps:
+        1. Log in to ABC Bank Net Banking or Mobile App
+        2. Go to Fund Transfer / NEFT / IMPS section
+        3. Enter the beneficiary account number
+        4. Enter the IFSC code of the beneficiary bank
+        5. Enter the amount to transfer
+        6. Verify and confirm the transaction
+
+        For immediate assistance, please call 1800-123-456.
+        Would you like help with anything else?
+
+  utter_branch_locator:
+    - text: "The nearest branch is 2 km from your location."
+
+  utter_atm_locator:
+    - text: "The nearest ATM is 500 meters away."
+
+  utter_interest_rate_query:
+    - text: "The current savings interest rate is 4% per annum."
+
+  utter_kyc_update:
+    - text: "Your KYC update request has been submitted successfully."
+
+  utter_check_balance:
+    - text: "Your Savings Account balance is ₹25,000. Is there anything else I can help you with?"
+      condition:
+        - type: slot
+          name: account_type
+          value: savings
+    - text: "Your Current Account balance is ₹1,20,000. Is there anything else I can help you with?"
+      condition:
+        - type: slot
+          name: account_type
+          value: current
+    - text: "Your account balance is ₹25,000. For a specific account, please say 'check savings balance' or 'check current balance'."
+
+  utter_loan_info:
+    - text: "Personal Loan:\nInterest: 11%\nMax Amount: ₹25,00,000\nTenure: Up to 5 years\n\nRequired Documents:\n- Aadhaar\n- PAN\n- Income Proof\n- Bank Statements (last 6 months)"
+      condition:
+        - type: slot
+          name: loan_type
+          value: personal
+    - text: "Home Loan:\nInterest: 8.5%\nMax Amount: ₹1,00,00,000\nTenure: Up to 30 years\n\nRequired Documents:\n- Aadhaar\n- PAN\n- Property Papers\n- Income Proof\n- Bank Statements (last 6 months)"
+      condition:
+        - type: slot
+          name: loan_type
+          value: home
+    - text: "Car Loan:\nInterest: 9%\nMax Amount: ₹50,00,000\nTenure: Up to 7 years\n\nRequired Documents:\n- Aadhaar\n- PAN\n- Vehicle Quotation\n- Income Proof"
+      condition:
+        - type: slot
+          name: loan_type
+          value: car
+    - text: "Education Loan:\nInterest: 7.5%\nMax Amount: ₹75,00,000\nTenure: Up to 15 years\n\nRequired Documents:\n- Aadhaar\n- PAN\n- Admission Letter\n- Fee Structure\n- Co-applicant Documents"
+      condition:
+        - type: slot
+          name: loan_type
+          value: education
+    - text: "Education Loan:\nInterest: 7.5%\nMax Amount: ₹75,00,000\nTenure: Up to 15 years\n\nRequired Documents:\n- Aadhaar\n- PAN\n- Admission Letter\n- Fee Structure\n- Co-applicant Documents"
+      condition:
+        - type: slot
+          name: loan_type
+          value: educational
+    - text: "Please choose a valid loan type: Personal, Home, Car, or Education."
+
+  utter_thank_you:
+    - text: "You're welcome! Is there anything else I can help you with?"
+    - text: "Happy to help! Do you need anything else?"
+    - text: "Glad I could assist! Anything else you'd like to know?"
+
+  utter_please_rephrase:
+    - text: "I'm sorry, I didn't quite understand that. Could you rephrase your question? I can help with banking services like balance checks, loans, fund transfers, and more."
+
+  utter_ask_bot_name:
+    - text: "I'm ABC Bank's virtual assistant! You can call me BankBot. I'm here to help you with all your banking needs."
+
+  utter_ask_weather:
+    - text: "I'm here to help with your banking needs. For weather information, I'd recommend checking a weather app or website."
+    - text: "I wish I could help with the weather, but I specialize in banking! Try a weather app for that. Meanwhile, can I help you with anything banking-related?"
+
+  utter_ask_howdoing:
+    - text: "I'm doing great, thank you for asking! I'm always ready to help you with your banking needs."
+    - text: "I'm running smoothly! Thanks for asking. How can I assist you today?"
+
+  utter_ask_whatcanyoudo:
+    - text: |
+        I can help you with various banking services:
+        - Check account balance
+        - Loan inquiries
+        - Block/freeze your card
+        - Fund transfers
+        - Find nearby branches & ATMs
+        - KYC updates
+        - Interest rate information
+        - Account opening guidance
+        How can I assist you today?
+
+  utter_ask_joke:
+    - text: "Why did the banker break up with the calculator? Because she felt she was being taken for granted! But seriously, how can I help with your banking needs?"
+    - text: "I'm better at counting money than telling jokes! How about I help you with some banking instead?"
+
+  utter_ask_time:
+    - text: "I don't have a clock, but I'm available 24/7 to help with your banking needs! You can check the time on your device."
+
+
 session_config:
   session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  carry_over_slots_to_new_session: false

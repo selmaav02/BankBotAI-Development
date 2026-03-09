@@ -2,90 +2,113 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
 
-- story: happy path 2
+# -------- TEST 1: Greeting --------
+- story: test greet
   steps:
   - user: |
-      hello there!
+      hello
     intent: greet
   - action: utter_greet
+
+# -------- TEST 2: Goodbye --------
+- story: test goodbye
+  steps:
   - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-  - user: |
-      bye-bye!
+      bye
     intent: goodbye
   - action: utter_goodbye
 
-- story: sad path 1
+# -------- TEST 3: Balance check with account number (slot filling) --------
+- story: test balance check with account number
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
+      I want to check my account balance
+    intent: check_balance
+  - action: utter_ask_account_number
   - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      yes
-    intent: affirm
-  - action: utter_happy
+      my account number is 458293746
+    intent: provide_account_number
+    entities:
+      - account_number: "458293746"
+  - action: action_check_balance
 
-- story: sad path 2
+# -------- TEST 4: Chitchat - Weather --------
+- story: test weather chitchat
   steps:
   - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
+      how's the weather today
+    intent: ask_weather
+  - action: utter_ask_weather
 
-- story: sad path 3
+# -------- TEST 5: Chitchat - Bot Name --------
+- story: test bot name chitchat
+  steps:
+  - user: |
+      what's your name
+    intent: ask_bot_name
+  - action: utter_ask_bot_name
+
+# -------- TEST 6: Chitchat - What can you do --------
+- story: test what can you do
+  steps:
+  - user: |
+      what can you do
+    intent: ask_whatcanyoudo
+  - action: utter_ask_whatcanyoudo
+
+# -------- TEST 7: Loan Inquiry --------
+- story: test loan inquiry
+  steps:
+  - user: |
+      I need a loan
+    intent: loan_inquiry
+  - action: utter_ask_loan_type
+  - user: |
+      personal
+    intent: provide_loan_type
+    entities:
+      - loan_type: personal
+  - action: action_loan_info
+
+# -------- TEST 8: Block Card --------
+- story: test block card
+  steps:
+  - user: |
+      block my card
+    intent: block_card
+  - action: utter_card_blocked
+
+# -------- TEST 9: Thank You --------
+- story: test thank you
+  steps:
+  - user: |
+      thank you
+    intent: thank_you
+  - action: utter_thank_you
+
+# -------- TEST 10: Full Banking Session --------
+- story: test full banking session
   steps:
   - user: |
       hi
     intent: greet
   - action: utter_greet
   - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+      I want to check my account balance
+    intent: check_balance
+  - action: utter_ask_account_number
   - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
-
-- story: say goodbye
-  steps:
+      my account number is 458293746
+    intent: provide_account_number
+    entities:
+      - account_number: "458293746"
+  - action: action_check_balance
   - user: |
-      bye-bye!
+      thank you
+    intent: thank_you
+  - action: utter_thank_you
+  - user: |
+      bye
     intent: goodbye
   - action: utter_goodbye
-
-- story: bot challenge
-  steps:
-  - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot

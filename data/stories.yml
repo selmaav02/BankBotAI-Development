@@ -2,29 +2,61 @@ version: "3.1"
 
 stories:
 
-# ---------- BALANCE ----------
+# ---------- MULTI-TURN CONTEXTUAL STORIES ----------
 
-# Two-step flow: user asks to check balance → bot asks type → user provides type → custom action
-- story: balance ask then provide
+- story: balance then thank and bye
   steps:
   - intent: check_balance
   - action: utter_ask_account_type
   - intent: provide_account_type
-  - action: action_check_balance
+  - action: utter_ask_account_number
+  - intent: provide_account_number
+  - action: utter_check_balance
+  - intent: thank_you
+  - action: utter_thank_you
+  - intent: goodbye
+  - action: utter_goodbye
 
-# Direct flow: user specifies account type in the initial message
-- story: direct balance check
+- story: deny more help and goodbye
+  steps:
+  - intent: check_balance
+  - action: utter_ask_account_type
+  - intent: provide_account_type
+  - action: utter_ask_account_number
+  - intent: provide_account_number
+  - action: utter_check_balance
+  - intent: deny
+  - action: utter_goodbye
+
+- story: affirm wants more help
+  steps:
+  - intent: check_balance
+  - action: utter_ask_account_type
+  - intent: provide_account_type
+  - action: utter_ask_account_number
+  - intent: provide_account_number
+  - action: utter_check_balance
+  - intent: affirm
+  - action: utter_greet
+
+- story: direct savings then bye
   steps:
   - intent: check_balance
     entities:
       - account_type: savings
-  - action: action_check_balance
+  - action: utter_ask_account_number
+  - intent: provide_account_number
+  - action: utter_check_balance
+  - intent: goodbye
+  - action: utter_goodbye
 
-- story: direct current balance check
+- story: loan then bye
   steps:
-  - intent: check_balance
-    entities:
-      - account_type: current
-  - action: action_check_balance
-
-
+  - intent: loan_inquiry
+  - action: utter_ask_loan_type
+  - intent: provide_loan_type
+  - action: utter_loan_info
+  - intent: thank_you
+  - action: utter_thank_you
+  - intent: goodbye
+  - action: utter_goodbye
