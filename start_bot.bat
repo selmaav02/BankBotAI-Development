@@ -1,13 +1,27 @@
 @echo off
-echo Starting Rasa Action Server and Rasa Shell...
+echo ========================================
+echo   ABC Bank Chat Assistant - Starting
+echo ========================================
 echo.
 
-REM Start action server in background
-start "Rasa Action Server" cmd /k "cd /d %~dp0 && .\venv\Scripts\activate && python -m rasa_sdk --actions actions"
+cd /d "%~dp0"
 
-REM Wait for action server to start
-timeout /t 5 /nobreak > nul
-
-REM Start rasa shell in this window
+REM Activate virtual environment
 call .\venv\Scripts\activate
-rasa shell
+
+REM Start Rasa server in background
+echo [1/2] Starting Rasa server...
+start "Rasa Server" cmd /k ".\venv\Scripts\activate && rasa run --enable-api --cors \"*\" --debug"
+
+REM Wait for Rasa to start
+echo Waiting for Rasa to start (30 seconds)...
+timeout /t 30 /nobreak > nul
+
+REM Start Flask web server
+echo [2/2] Starting Web UI...
+echo.
+echo ========================================
+echo   Open http://localhost:5000 in browser
+echo ========================================
+echo.
+python app.py

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Bank - Chat Assistant</title>
+    <meta name="description" content="ABC Bank's virtual banking assistant. Get help with balance checks, loans, fund transfers, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Panel - Chat -->
+        <div class="chat-panel">
+            <div class="chat-container" id="chatContainer">
+                <!-- Header -->
+                <div class="chat-header">
+                    <div class="header-left">
+                        <div class="bot-avatar-header">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="white" opacity="0.2"/>
+                                <path d="M12 6c-1.1 0-2 .9-2 2v1H8v2h8v-2h-2V8c0-1.1-.9-2-2-2zm-4 7v4h8v-4H8z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="header-info">
+                            <h1>Bank Assistant</h1>
+                            <div class="status-indicator" id="statusIndicator">
+                                <span class="status-dot online" id="statusDot"></span>
+                                <span class="status-text" id="statusText">Online</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Messages Area -->
+                <div class="messages-area" id="messagesArea">
+                    <div class="date-divider">
+                        <span id="currentDate"></span>
+                    </div>
+                </div>
+
+                <!-- Connection Error Banner -->
+                <div class="error-banner" id="errorBanner" style="display: none;">
+                    <div class="error-icon">⚠️</div>
+                    <span id="errorText">Connection error. Retrying in 5 seconds...</span>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
+                        <button id="sendBtn" onclick="sendMessage()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="white"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
