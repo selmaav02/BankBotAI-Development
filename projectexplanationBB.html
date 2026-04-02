@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BankBot – AI Powered Banking Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Open Sans', sans-serif; 
+            background: #eef2f6; 
+            color: #334155; 
+        }
+
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+
+        .slide {
+            width: 297mm; min-height: 210mm;
+            padding: 40px 60px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media print {
+            body { background: white; }
+            .slide { box-shadow: none; margin: 0; width: 100%; min-height: 100vh; padding: 40px 60px; }
+            .no-print { display: none !important; }
+        }
+        @page { size: A4 landscape; margin: 0; }
+
+        /* THEME — Premium Indigo & Amber */
+        :root {
+            --primary: #3730a3; /* Indigo 800 */
+            --primary-light: #4f46e5; /* Indigo 600 */
+            --accent: #f59e0b; /* Amber 500 */
+            --bg-soft: #e0e7ff; /* Indigo 100 */
+            --bg-card: #f8fafc;
+            --border: #c7d2fe; /* Indigo 200 */
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        /* Slide Top Decor */
+        .slide::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--accent));
+        }
+
+        /* Footers */
+        .pg { position: absolute; bottom: 20px; right: 60px; font-size: 11px; color: #94a3b8; font-weight: 600; }
+        .ft { position: absolute; bottom: 20px; left: 60px; font-size: 10px; color: #cbd5e1; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+        .ft-line { position: absolute; bottom: 45px; left: 60px; right: 60px; height: 1px; background: #f1f5f9; }
+
+        /* Background Graphics */
+        .bg-shape-1 { position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%); z-index: 0; }
+        .bg-shape-2 { position: absolute; bottom: -50px; left: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%); z-index: 0; }
+
+        /* Typography */
+        h2 { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 25px; position: relative; z-index: 1;}
+        h3 { font-size: 16px; font-weight: 700; color: var(--text-main); margin: 20px 0 10px; position: relative; z-index: 1;}
+        p { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.6; position: relative; z-index: 1;}
+
+        ul { list-style: none; padding: 0; position: relative; z-index: 1;}
+        ul li { font-size: 13.5px; color: var(--text-main); padding: 6px 0 6px 24px; position: relative; line-height: 1.5; }
+        ul li::before { content: '✦'; position: absolute; left: 0; top: 6px; color: var(--accent); font-size: 12px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; position: relative; z-index: 1;}
+        th { background: var(--bg-soft); color: var(--primary); padding: 12px 15px; text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase; border-bottom: 2px solid var(--border); }
+        td { padding: 10px 15px; border-bottom: 1px solid #f1f5f9; color: var(--text-muted); }
+        tr:hover td { background: #f8fafc; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; position: relative; z-index: 1;}
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; position: relative; z-index: 1;}
+
+        .card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: transform 0.2s; }
+        .card .icon { font-size: 26px; margin-bottom: 8px; color: var(--primary); }
+        .card .title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+        .card .desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+        /* Flow Diagram CSS */
+        .diagram-container { display: flex; align-items: center; justify-content: center; margin: 30px 0; flex-wrap: wrap; gap: 10px; position: relative; z-index: 1;}
+        .diagram-node { background: white; border: 2px solid var(--primary-light); border-radius: 8px; padding: 15px 20px; text-align: center; width: 160px; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.1); position: relative;}
+        .diagram-node.highlight { background: var(--primary); color: white; border-color: var(--primary); }
+        .diagram-node.accent { background: var(--bg-soft); border-color: var(--primary-light); }
+        .diagram-icon { font-size: 24px; margin-bottom: 5px; }
+        .diagram-title { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 3px; }
+        .diagram-sub { font-size: 10px; opacity: 0.8; }
+        .diagram-arrow { color: var(--accent); font-size: 24px; font-weight: bold; margin: 0 5px; }
+
+        /* TITLE SLIDE */
+        .title-slide {
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            color: white;
+        }
+        .title-slide::before { display: none; }
+        .title-slide .pg, .title-slide .ft, .title-slide .ft-line { display: none; }
+        
+        .title-icon { font-size: 56px; margin-bottom: 20px; border-radius: 20px; background: rgba(255,255,255,0.1); padding: 20px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .title-slide h1 { font-size: 48px; color: white; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .title-slide .sub { font-size: 20px; color: var(--accent); margin: 0 0 40px; font-weight: 600; letter-spacing: 1px; }
+        .title-slide .meta-box { background: rgba(0,0,0,0.2); padding: 15px 40px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
+        .title-slide .meta { font-size: 14px; color: #e2e8f0; font-weight: 500;}
+        .title-slide .meta span { margin: 0 15px; }
+        
+        .deco-circle-1 { position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%); top: -100px; right: -100px; }
+        .deco-circle-2 { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(79, 70, 229, 0.4) 0%, transparent 70%); bottom: -80px; left: -80px; }
+
+
+    </style>
+</head>
+<body>
+
+
+
+<!-- ================= SLIDE 1: TITLE ================= -->
+<div class="slide title-slide">
+    <div class="deco-circle-1"></div>
+    <div class="deco-circle-2"></div>
+    <div class="title-icon">🏦</div>
+    <h1>BankBot</h1>
+    <div class="sub">Intelligent Banking Assistant</div>
+    <div class="meta-box">
+        <div class="meta">
+            <span>👤 Ummu Selma</span>
+           
+        </div>
+    </div>
+</div>
+
+<!-- ================= SLIDE 2: INTRODUCTION ================= -->
+<div class="slide">
+    <div class="bg-shape-1"></div>
+    <h2>Introduction</h2>
+    <p style="font-size: 16px; font-weight: 500; color: var(--text-main); margin-bottom: 25px;">BankBot is an advanced AI chatbot designed to modernize customer support in the banking sector using Natural Language Processing (NLP).</p>
+    
+    <div class="two-col">
+        <div>
+            <h3>The Transition to AI</h3>
+            <p>Modern banking requires instant, reliable customer service. Traditional call centers are being rapidly augmented by Intelligent Virtual Assistants.</p>
+            <ul>
+                <li><strong>No Keywords Needed:</strong> Understands normal human sentences.</li>
+                <li><strong>Always Online:</strong> Provides 24/7 uninterrupted assistance.</li>
+                <li><strong>Scalable:</strong> Can serve thousands of customers at the exact same moment.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Why It Matters</h3>
+            <p>Industry leaders like HDFC, ICICI, and SBI have successfully implemented chatbots to improve customer experiences.</p>
+            <ul>
+                <li>Reduces average wait times from <strong>minutes to milliseconds</strong>.</li>
+                <li>Lowers operational costs for repetitive customer service queries.</li>
+                <li>Provides valuable insights through chat conversation analysis.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">2 / 13</div>
+</div>
+
+<!-- ================= SLIDE 3: PROBLEM & OBJECTIVES ================= -->
+<div class="slide">
+    <div class="bg-shape-2"></div>
+    <h2>Problem Statement & Objectives</h2>
+    
+    <div class="two-col">
+        <div class="card" style="background: #fff1f2; border-color: #fecdd3;">
+            <h3 style="color: #be123c; margin-top: 0;">Challenges in Traditional Systems</h3>
+            <ul style="color: #881337;">
+                <li><strong>Long Queues:</strong> Extended waiting times on support calls.</li>
+                <li><strong>Time Constraints:</strong> Banking support ends after business hours.</li>
+                <li><strong>Repetitive Tasks:</strong> Agents waste time answering the same routine questions continuously.</li>
+                <li><strong>Human Error:</strong> Risk of inconsistent information being provided by different agents.</li>
+            </ul>
+        </div>
+        <div class="card" style="background: var(--bg-soft); border-color: var(--border);">
+            <h3 style="color: var(--primary); margin-top: 0;">Project Objectives</h3>
+            <ul>
+                <li>Develop a chatbot capable of <strong>understanding conversational English</strong>.</li>
+                <li><strong>Automate core banking queries</strong> (balance checks, loans, cards).</li>
+                <li>Implement a secure <strong>Admin Dashboard</strong> for staff to manage the system.</li>
+                <li>Create a system that <strong>logs interactions</strong> for continuous future improvement.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">3 / 13</div>
+</div>
+
+<!-- ================= SLIDE 4: TECHNOLOGY STACK ================= -->
+<div class="slide">
+    <div class="bg-shape-1"></div>
+    <h2>Technology Stack</h2>
+    <p>BankBot is a full-stack AI application combining Machine Learning, Backend routing, and Frontend web interfaces.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Vertical</th>
+                <th>Technology Used</th>
+                <th>Role in Project</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>AI / NLP Engine</strong></td>
+                <td><strong>Rasa Open Source</strong></td>
+                <td>Processes text, extracts meaning, controls conversation flow.</td>
+            </tr>
+            <tr>
+                <td><strong>ML Architecture</strong></td>
+                <td><strong>DIET Classifier</strong></td>
+                <td>Deep learning model for highly accurate text understanding.</td>
+            </tr>
+            <tr>
+                <td><strong>Web Server Layer</strong></td>
+                <td><strong>Python (Flask)</strong></td>
+                <td>Handles API routing, security sessions, and ties components together.</td>
+            </tr>
+            <tr>
+                <td><strong>Database Layer</strong></td>
+                <td><strong>SQLite3</strong></td>
+                <td>Self-contained database storing chat logs and frequently asked questions.</td>
+            </tr>
+            <tr>
+                <td><strong>User Interface</strong></td>
+                <td><strong>HTML5, CSS3, JS</strong></td>
+                <td>Responsive chat widget and Interactive Admin Dashboard.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">4 / 13</div>
+</div>
+
+<!-- ================= SLIDE 5: UNDERSTANDING NLU ================= -->
+<div class="slide">
+    <div class="bg-shape-2"></div>
+    <h2>Understanding Rasa NLU</h2>
+    <p>Rasa Natural Language Understanding (NLU) breaks down human text into structured data using two main concepts.</p>
+
+    <div class="two-col">
+        <div>
+            <h3>1. Intent Recognition</h3>
+            <p>Identifying the <strong>purpose</strong> or goal behind the user's message.</p>
+            <div class="card" style="padding: 15px; margin-top: 10px;">
+                <p style="margin: 0; font-size: 13px;"><em>"I want to block my debit card immediately."</em></p>
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc;">
+                    <span style="font-weight: bold; color: var(--primary); font-size: 13px;">Extracted Intent:</span> 
+                    <span style="background: #e2e8f0; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-family: monospace;">block_card</span>
+                </div>
+            </div>
+            
+            <table style="margin-top: 15px;">
+                <tr><td>"Check balance"</td><td style="font-family: monospace; font-size: 11px;">check_balance</td></tr>
+                <tr><td>"Find an ATM"</td><td style="font-family: monospace; font-size: 11px;">atm_locator</td></tr>
+            </table>
+        </div>
+        <div>
+            <h3>2. Entity Extraction</h3>
+            <p>Pulling out <strong>specific pieces of information</strong> (parameters) from the message.</p>
+            <div class="card" style="padding: 15px; margin-top: 10px;">
+                <p style="margin: 0; font-size: 13px;"><em>"What is the balance of my <span style="color: var(--accent); font-weight:bold;">savings</span> account?"</em></p>
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc;">
+                    <span style="font-weight: bold; color: var(--primary); font-size: 13px;">Extracted Entity:</span> <br>
+                    <span style="font-size: 12px;">Name: <span style="font-family: monospace;">account_type</span> | Value: <strong>savings</strong></span>
+                </div>
+            </div>
+            <p style="font-size: 11px; margin-top: 15px; background: #fffbeb; padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent);">
+                <strong>Confidence Scoring:</strong> Every prediction receives a percentage score. If the score falls below a set threshold, the bot intelligently asks for clarification.
+            </p>
+        </div>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">5 / 13</div>
+</div>
+
+<!-- ================= SLIDE 6: TRANSFORMER ARCHITECTURE ================= -->
+<div class="slide">
+    <div class="bg-shape-1"></div>
+    <h2>Machine Learning Architecture</h2>
+    <p>BankBot utilizes the <strong>Transformer Architecture</strong> — the same underlying technology that powers advanced language models like BERT and modern LLMs.</p>
+
+    <div class="two-col">
+        <div>
+            <h3>The DIET Classifier</h3>
+            <p>Dual Intent and Entity Transformer (DIET) is a multi-task neural network.</p>
+            <ul>
+                <li>Simultaneously predicts intents and entities to improve computational speed.</li>
+                <li>Uses <strong>Self-Attention Mechanisms</strong> to understand context. It looks at the whole sentence at once, not just word-by-word.</li>
+                <li>Trained specifically on a custom dataset of banking-related vocabulary.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>How Text is Processed</h3>
+            <div class="card" style="background: var(--bg-card); padding: 15px;">
+                <ol style="margin-left: 20px; font-size: 13px; color: var(--text-main); line-height: 1.8;">
+                    <li><strong>Tokenization:</strong> Sentence broken into individual words.</li>
+                    <li><strong>Featurization:</strong> Words converted into mathematical vectors.</li>
+                    <li><strong>Contextualization:</strong> Context is understood via attention spans.</li>
+                    <li><strong>Classification:</strong> Model outputs final intent and extracted entities.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">6 / 13</div>
+</div>
+
+<!-- ================= SLIDE 7: SYSTEM ARCHITECTURE ================= -->
+<div class="slide">
+    <div class="bg-shape-2"></div>
+    <h2>System Architecture</h2>
+    <p>The system is built as a microservices-style architecture, allowing different parts of the application to operate and communicate efficiently.</p>
+
+    <div class="three-col" style="margin-top: 30px;">
+        <div class="card" style="border-top: 4px solid var(--accent);">
+            <div class="icon">💻</div>
+            <div class="title">Presentation Layer</div>
+            <div class="desc">The Chat Interface for end-users and the Secure Dashboard for bank administrators.</div>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--primary-light);">
+            <div class="icon">⚙️</div>
+            <div class="title">Logic & Web Layer</div>
+            <div class="desc">Flask server handling HTTP routing, APIs, session security, and data formatting.</div>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--primary);">
+            <div class="icon">🧠</div>
+            <div class="title">Intelligence Layer</div>
+            <div class="desc">Rasa Server executing NLU tasks, plus the Action server for custom python logic.</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 25px; background: var(--bg-soft); border: none;">
+        <h3 style="margin-top: 0; font-size: 14px;">Data Persistence Layer (SQLite)</h3>
+        <p style="margin: 0; font-size: 13px;">Acts as the central memory bank — safely storing conversation logs, query metadata, and FAQs for offline analysis and dashboard reporting.</p>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">7 / 13</div>
+</div>
+
+<!-- ================= SLIDE 8: WORKING FLOW DIAGRAM ================= -->
+<div class="slide">
+    <h2>Complete Working Flow Process</h2>
+    <p style="text-align: center; font-weight: 600; font-size: 15px; margin-bottom: 30px;">How a message travels from the user and back.</p>
+
+    <!-- Visual Diagram -->
+    <div class="diagram-container">
+        
+        <div class="diagram-node">
+            <div class="diagram-icon">👤</div>
+            <div class="diagram-title">User Input</div>
+            <div class="diagram-sub">Types message in Chat UI</div>
+        </div>
+
+        <div class="diagram-arrow">&#8594;</div>
+
+        <div class="diagram-node accent">
+            <div class="diagram-icon">🌐</div>
+            <div class="diagram-title">Flask Server</div>
+            <div class="diagram-sub">Receives via Webhook</div>
+        </div>
+
+        <div class="diagram-arrow">&#8594;</div>
+
+        <div class="diagram-node highlight">
+            <div class="diagram-icon">🧠</div>
+            <div class="diagram-title">Rasa AI Engine</div>
+            <div class="diagram-sub">Identifies Intent</div>
+        </div>
+
+        <div class="diagram-arrow">&#8594;</div>
+
+        <div class="diagram-node" style="border-color: var(--accent);">
+            <div class="diagram-icon">⚙️</div>
+            <div class="diagram-title">Action Server</div>
+            <div class="diagram-sub">Runs Business Logic</div>
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <div class="diagram-node" style="border-color: #10b981;">
+            <div class="diagram-icon">💬</div>
+            <div class="diagram-title">Final Output</div>
+            <div class="diagram-sub">Message shown to User</div>
+        </div>
+
+        <div class="diagram-arrow">&#8592;</div>
+
+        <div class="diagram-node accent">
+            <div class="diagram-icon">🌐</div>
+            <div class="diagram-title">Flask Server</div>
+            <div class="diagram-sub">Sends back payload</div>
+        </div>
+
+        <div class="diagram-arrow">&#8592;</div>
+
+        <div class="diagram-node" style="border-style: dashed;">
+            <div class="diagram-icon">🗄️</div>
+            <div class="diagram-title">SQLite DB</div>
+            <div class="diagram-sub">Logs interaction data</div>
+        </div>
+    </div>
+
+    <p style="text-align: center; font-size: 12px; margin-top: 20px; color: var(--text-muted);">
+        <em>Data is synchronously logged to the database before the final response is delivered to the user interface.</em>
+    </p>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">8 / 13</div>
+</div>
+
+<!-- ================= SLIDE 9: WEB INTERFACE ================= -->
+<div class="slide">
+    <div class="bg-shape-1"></div>
+    <h2>Web Interface & Backend Integration</h2>
+    
+    <div class="two-col">
+        <div>
+            <h3>Frontend (Client Side)</h3>
+            <p>Built with pure HTML5, CSS3, and Vanilla JavaScript for ultra-fast load times.</p>
+            <ul style="margin-bottom: 20px;">
+                <li><strong>Dynamic Chat UI:</strong> Features real-time typing indicators, auto-scrolling, and online status markers.</li>
+                <li><strong>Admin Dashboard:</strong> Secure portal containing 6 distinct modules (Analytics, Settings, Logs).</li>
+                <li><strong>Responsive:</strong> Fluid design adapting to mobile and desktop screens.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Backend (Flask Python)</h3>
+            <p>The centralized hub routing all HTTP requests.</p>
+            <ul>
+                <li><strong>API Architecture:</strong> Serves JSON endpoints for dashboard statistics.</li>
+                <li><strong>Security:</strong> Implements strictly enforced session boundaries and prevents unauthorized back-button navigation via cache headers.</li>
+                <li><strong>File I/O:</strong> Generates CSV export files of query logs dynamically.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 15px; background: var(--bg-soft); padding: 12px 20px;">
+        <p style="margin: 0; font-size: 13px; font-weight: 600; color: var(--primary);">Secure Login Implementation:</p>
+        <p style="margin: 0; font-size: 12px;">Admin login uses server-side sessions. Every API endpoint enforces a strict session check before releasing sensitive analytics data.</p>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">9 / 13</div>
+</div>
+
+<!-- ================= SLIDE 10: DATABASE LAYER ================= -->
+<div class="slide">
+    <div class="bg-shape-2"></div>
+    <h2>Database Design</h2>
+    <p>Using SQLite for lightweight, serverless, and robust data storage mechanism contained entirely within the project.</p>
+
+    <div class="two-col" style="margin-top: 20px;">
+        <div class="card" style="padding: 0; overflow: hidden; border: 1px solid var(--border);">
+            <div style="background: var(--bg-soft); padding: 12px 15px; font-weight: bold; color: var(--primary);">Table: query_logs</div>
+            <div style="padding: 15px;">
+                <p style="font-size: 11px; margin-bottom: 10px;">Captures every user interaction.</p>
+                <ul style="font-size: 12px;">
+                    <li><strong>id:</strong> Primary Key</li>
+                    <li><strong>query:</strong> The raw text sent by user</li>
+                    <li><strong>intent:</strong> Categorized intent label</li>
+                    <li><strong>confidence:</strong> NLU decimal score</li>
+                    <li><strong>response:</strong> What the bot replied</li>
+                    <li><strong>timestamp:</strong> Exact Date & Time</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: hidden; border: 1px solid var(--border);">
+            <div style="background: var(--bg-soft); padding: 12px 15px; font-weight: bold; color: var(--primary);">Table: faqs</div>
+            <div style="padding: 15px;">
+                <p style="font-size: 11px; margin-bottom: 10px;">Manages Frequently Asked Questions.</p>
+                <ul style="font-size: 12px;">
+                    <li><strong>id:</strong> Primary Key</li>
+                    <li><strong>question:</strong> Question text formulation</li>
+                    <li><strong>answer:</strong> Detailed text response</li>
+                    <li><strong>created_at:</strong> Auto timestamp formulation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">10 / 13</div>
+</div>
+
+<!-- ================= SLIDE 11: KEY CAPABILITIES ================= -->
+<div class="slide">
+    <h2>Key System Capabilities</h2>
+
+    <div class="three-col" style="margin-top: 20px;">
+        <div class="card">
+            <div class="title" style="color: var(--primary);">💰 Multi-turn Account Info</div>
+            <div class="desc">Navigates step-by-step logic. Asks for account type, then account number, before generating balance data.</div>
+        </div>
+        <div class="card">
+            <div class="title" style="color: var(--primary);">🏦 Loan Services</div>
+            <div class="desc">Categorizes processing for Personal, Home, Car, and Education loans delivering accurate documentation requirements.</div>
+        </div>
+        <div class="card">
+            <div class="title" style="color: var(--primary);">🛡️ Graceful Handling</div>
+            <div class="desc">Fallback classifiers trigger politely worded apologies and guide users to rephrase unrecognized inputs.</div>
+        </div>
+        <div class="card">
+            <div class="title" style="color: var(--primary);">📊 Administrative Control</div>
+            <div class="desc">Visual dashboard presenting success rates, tracking confidence distributions, and query volumes.</div>
+        </div>
+        <div class="card">
+            <div class="title" style="color: var(--primary);">📂 FAQ System</div>
+            <div class="desc">Allows non-technical staff to Add, Review, and Delete FAQs dynamically acting as a mini-CMS.</div>
+        </div>
+        <div class="card">
+            <div class="title" style="color: var(--primary);">💬 Chitchat Elements</div>
+            <div class="desc">Handles soft conversations (greetings, 'how are you', jokes) to create a humanized, engaging experience.</div>
+        </div>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">11 / 13</div>
+</div>
+
+<!-- ================= SLIDE 12: ADVANTAGES & FUTURE ================= -->
+<div class="slide">
+    <div class="bg-shape-1"></div>
+    <h2>Advantages & Future Enhancements</h2>
+
+    <div class="two-col">
+        <div>
+            <h3>Current System Advantages</h3>
+            <ul style="background: #f8fafc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent);">
+                <li><strong>Highly Scalable:</strong> Capacity restricted only by server computing power, not human physical limits.</li>
+                <li><strong>Superior Speed:</strong> Generates complex answers reliably within milliseconds.</li>
+                <li><strong>Cost Effective:</strong> Negates the requirement for large tier-1 support call centers.</li>
+                <li><strong>Analytical Insight:</strong> Provides banks concrete data on exactly what features customers are requesting daily.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Future Development Scope</h3>
+            <ul style="background: #f8fafc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--primary-light);">
+                <li><strong>Voice Recognition:</strong> Integrating Speech-To-Text APIs for audible conversations.</li>
+                <li><strong>Real Core Integration:</strong> Connecting Action server to secure real-world banking REST APIs.</li>
+                <li><strong>Multilingual Support:</strong> Training models to comprehend Indian regional languages.</li>
+                <li><strong>Generative AI:</strong> Hooking up to Large Language Models (LLMs) to answer unscripted edge-case questions.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ft-line"></div><div class="ft">BankBot Project • Ummu Selma</div><div class="pg">12 / 13</div>
+</div>
+
+<!-- ================= SLIDE 13: THANK YOU ================= -->
+<div class="slide title-slide">
+    <div class="deco-circle-1" style="background: radial-gradient(circle, rgba(79, 70, 229, 0.4) 0%, transparent 70%);"></div>
+    <div class="deco-circle-2" style="background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);"></div>
+    
+    <h1 style="font-size: 64px; margin-bottom: 10px;">Thank You!</h1>
+    <div class="sub" style="font-size: 24px; color: white;">Open for queries and feedback.</div>
+    
+    <div style="margin-top: 40px; display: flex; gap: 15px;">
+        <span style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;">BankBot Project</span>
+        <span style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;">By Ummu Selma</span>
+    </div>
+</div>
+
+</body>
+</html>
