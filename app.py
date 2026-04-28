@@ -17,6 +17,10 @@ RASA_PARSE_URL = "http://localhost:5005/model/parse"
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
+# Default user credentials (for demo)
+USER_USERNAME = "user"
+USER_PASSWORD = "user123"
+
 # Path to training data files
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DOMAIN_PATH = os.path.join(BASE_DIR, "domain.yml")
@@ -27,8 +31,48 @@ init_db()
 
 
 @app.route("/")
+def index():
+    """User login page."""
+    if session.get("user_logged_in"):
+        return redirect(url_for("home"))
+    return render_template("login.html")
+
+
+@app.route("/login", methods=["POST"])
+def user_login():
+    """Handle user login."""
+    data = request.get_json()
+    username = data.get("username", "").strip()
+    password = data.get("password", "")
+    if username == USER_USERNAME and password == USER_PASSWORD:
+        session["user_logged_in"] = True
+        session["user_name"] = "Priya"
+        return jsonify({"success": True})
+    return jsonify({"success": False, "message": "Invalid credentials. Please try again."}), 401
+
+
+@app.route("/home")
 def home():
+    """Banking home page (user must be logged in)."""
+    if not session.get("user_logged_in"):
+        return redirect(url_for("index"))
+    return render_template("home.html")
+
+
+@app.route("/chat")
+def chat_page():
+    """Standalone chat page."""
+    if not session.get("user_logged_in"):
+        return redirect(url_for("index"))
     return render_template("chat.html")
+
+
+@app.route("/user-logout")
+def user_logout():
+    """Log out the user."""
+    session.pop("user_logged_in", None)
+    session.pop("user_name", None)
+    return redirect(url_for("index"))
 
 
 # ===== ADMIN AUTH ROUTES =====
@@ -289,8 +333,8 @@ def health():
 
 
 if __name__ == "__main__":
-    print("\n✅ Bank Assistant Web UI is running!")
-    print("🌐 Open http://localhost:5000 in your browser")
-    print("🔐 Admin Panel: http://localhost:5000/admin")
-    print("⚠️  Make sure Rasa is running: rasa run --enable-api --cors \"*\"\n")
+    print("\n[OK] NexaBank Virtual Assistant is running!")
+    print("[WEB] User Portal : http://localhost:5000")
+    print("[ADM] Admin Panel : http://localhost:5000/admin")
+    print("[!]   Make sure Rasa is running: rasa run --enable-api --cors \"*\"\n")
     app.run(debug=True, port=5000)

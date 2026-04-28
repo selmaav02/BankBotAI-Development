@@ -62,17 +62,17 @@ actions: []
 responses:
 
   utter_greet:
-    - text: "Hello! Welcome to ABC Bank. How can I help you today?"
-    - text: "Hi there! Welcome to ABC Bank. What can I assist you with?"
-    - text: "Good day! I'm your ABC Bank assistant. How may I help you?"
+    - text: "Hello! Welcome to NexaBank. How can I help you today?"
+    - text: "Hi there! Welcome to NexaBank. What can I assist you with?"
+    - text: "Good day! I'm your NexaBank assistant. How may I help you?"
 
   utter_goodbye:
-    - text: "Thank you for using ABC Bank. Have a nice day!"
+    - text: "Thank you for using NexaBank. Have a nice day!"
     - text: "Goodbye! It was great helping you. Have a wonderful day!"
     - text: "See you later! Feel free to come back anytime."
 
   utter_contact_support:
-    - text: "Please contact customer care at 1800-123-456. Our support team is available 24/7."
+    - text: "Please contact NexaBank customer care at 1800-NXB-XXXX. Our support team is available 24/7."
 
   utter_ask_account_type:
     - text: "Please choose account type: Savings or Current."
@@ -92,7 +92,7 @@ responses:
         - Address Proof
 
   utter_card_blocked:
-    - text: "Your card has been blocked successfully. For any further concerns, please call 1800-123-456."
+    - text: "Your card has been blocked successfully. For any further concerns, please call NexaBank helpline at 1800-NXB-XXXX."
 
   utter_transaction_result:
     - text: "Your last transaction of ₹5,000 was successful."
@@ -100,14 +100,14 @@ responses:
   utter_fund_transfer:
     - text: |
         To transfer funds, please follow these steps:
-        1. Log in to ABC Bank Net Banking or Mobile App
+        1. Log in to NexaBank NetBanking or Mobile App
         2. Go to Fund Transfer / NEFT / IMPS section
         3. Enter the beneficiary account number
         4. Enter the IFSC code of the beneficiary bank
         5. Enter the amount to transfer
         6. Verify and confirm the transaction
 
-        For immediate assistance, please call 1800-123-456.
+        For immediate assistance, please call NexaBank helpline 1800-NXB-XXXX.
         Would you like help with anything else?
 
   utter_branch_locator:
@@ -172,7 +172,7 @@ responses:
     - text: "I'm sorry, I didn't quite understand that. Could you rephrase your question? I can help with banking services like balance checks, loans, fund transfers, and more."
 
   utter_ask_bot_name:
-    - text: "I'm ABC Bank's virtual assistant! You can call me BankBot. I'm here to help you with all your banking needs."
+    - text: "I'm NexaBank's virtual assistant! You can call me NexaBot. I'm here to help you with all your banking needs."
 
   utter_ask_weather:
     - text: "I'm here to help with your banking needs. For weather information, I'd recommend checking a weather app or website."

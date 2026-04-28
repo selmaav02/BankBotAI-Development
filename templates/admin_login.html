@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - ABC Bank Chatbot</title>
-    <meta name="description" content="Admin login page for ABC Bank Chatbot Dashboard.">
+    <title>Admin Login - NexaBank Chatbot Management</title>
+    <meta name="description" content="Secure admin login for NexaBank Chatbot Dashboard.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,14 +16,16 @@
         }
 
         :root {
-            --primary: #1976D2;
-            --primary-dark: #0D47A1;
-            --primary-light: #BBDEFB;
+            --primary: #003366;
+            --primary-dark: #001F40;
+            --primary-light: #C9A84C;
+            --gold: #C9A84C;
+            --gold-light: #F0D688;
             --bg-card: #FFFFFF;
-            --text-primary: #1E293B;
-            --text-secondary: #64748B;
+            --text-primary: #1A2340;
+            --text-secondary: #4A5568;
             --text-light: #94A3B8;
-            --border: #E2E8F0;
+            --border: #D1DCF0;
             --error: #EF4444;
             --error-bg: #FEF2F2;
             --radius-md: 12px;
@@ -39,7 +41,7 @@
             justify-content: center;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #0D47A1 0%, #1565C0 20%, #1976D2 40%, #1E88E5 60%, #2196F3 80%, #42A5F5 100%);
+            background: linear-gradient(135deg, #001F40 0%, #002850 20%, #003366 40%, #004080 60%, #003366 80%, #001F40 100%);
             position: relative;
             overflow: hidden;
         }
@@ -144,7 +146,7 @@
         .brand-logo {
             width: 72px;
             height: 72px;
-            background: rgba(255,255,255,0.15);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
             border-radius: 22px;
             display: flex;
             align-items: center;
@@ -163,7 +165,7 @@
         .brand-logo svg {
             width: 36px;
             height: 36px;
-            fill: white;
+            fill: var(--primary-dark);
         }
 
         .brand-header h1 {
@@ -258,7 +260,7 @@
             outline: none;
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1);
+            box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.1);
         }
 
         .input-wrapper:focus-within .field-icon {
@@ -340,7 +342,7 @@
         .login-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #1976D2 0%, #1E88E5 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, #004080 100%);
             color: white;
             border: none;
             border-radius: var(--radius-md);
@@ -370,8 +372,8 @@
         }
 
         .login-btn:hover {
-            background: linear-gradient(135deg, #1565C0 0%, #1976D2 100%);
-            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.5);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.5);
             transform: translateY(-2px);
         }
 
@@ -507,7 +509,7 @@
                     <circle cx="12" cy="7" r="2" fill="white"/>
                 </svg>
             </div>
-            <h1>ABC Bank Admin</h1>
+            <h1>NexaBank Admin Portal</h1>
             <p>Chatbot Management Dashboard</p>
         </div>
 

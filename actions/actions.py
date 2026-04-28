@@ -29,7 +29,7 @@ class ActionCheckBalance(Action):
             )
         else:
             dispatcher.utter_message(
-                text=f"Your current balance (A/C: {acc_display}) is $5,432.78. Is there anything else I can help you with?"
+                text=f"Your account balance (A/C: {acc_display}) is \u20b95,432.78. Is there anything else I can help you with?"
             )
 
         return [

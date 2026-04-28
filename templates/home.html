@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexaBank | Home</title>
+<meta name="description" content="Indian National Bank - Your personal internet banking dashboard.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo-box">
+      <svg viewBox="0 0 24 24"><path d="M3 21h18M6 18V9M10 18V9M14 18V9M18 18V9M2 9l10-6 10 6"/></svg>
+    </div>
+    <div class="nav-brand-text">
+      <div class="inb">NexaBank</div>
+      <div class="tagline">Next Generation Banking</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="/home" class="nav-link active">Dashboard</a>
+    <a href="#" class="nav-link">Accounts</a>
+    <a href="#" class="nav-link">Transfers</a>
+    <a href="#" class="nav-link">Payments</a>
+    <a href="#" class="nav-link">Investments</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-user">
+      <div class="user-av">P</div>
+      <div>
+        <div class="user-name">Priya</div>
+        <div class="user-role">Savings Account</div>
+      </div>
+    </div>
+    <a href="/user-logout" class="logout-btn">Logout</a>
+  </div>
+</nav>
+
+<!-- ── HERO BANNER ── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-greeting">
+        <h2>👋 Welcome back</h2>
+        <h1>Good Day, Priya</h1>
+        <p>Customer ID: NXB-007-XXXXX &nbsp;|&nbsp; Last Login: Today, 9:14 AM</p>
+      </div>
+      <div class="hero-date">
+        <div class="date-txt" id="heroDate"></div>
+        <div class="time-txt" id="heroTime"></div>
+      </div>
+    </div>
+    <div class="acc-cards">
+      <div class="acc-card active">
+        <div class="acc-card-label">Savings Account</div>
+        <div class="acc-card-num">XXXX XXXX 5821</div>
+        <div class="acc-card-bal"><span>₹</span>25,000.00</div>
+        <div class="acc-card-footer">
+          <span class="tag">Active</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.4)">Available Balance</span>
+        </div>
+      </div>
+      <div class="acc-card">
+        <div class="acc-card-label">Current Account</div>
+        <div class="acc-card-num">XXXX XXXX 3047</div>
+        <div class="acc-card-bal"><span>₹</span>1,20,000.00</div>
+        <div class="acc-card-footer">
+          <span class="tag">Active</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.4)">Available Balance</span>
+        </div>
+      </div>
+      <div class="acc-card">
+        <div class="acc-card-label">Home Loan EMI</div>
+        <div class="acc-card-num">HL-NXB-2022-445</div>
+        <div class="acc-card-bal"><span>₹</span>12,500.00</div>
+        <div class="acc-card-footer">
+          <span class="tag" style="background:rgba(217,119,6,.25);color:#FCD34D">Next: 5 May</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.4)">Monthly EMI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- Quick Services -->
+  <div class="section-title">Quick Services</div>
+  <div class="services-grid">
+    <a href="#" class="service-item">
+      <div class="svc-icon blue"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <span>Fund Transfer</span>
+    </a>
+    <a href="#" class="service-item">
+      <div class="svc-icon green"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+      <span>Pay Bills</span>
+    </a>
+    <a href="#" class="service-item">
+      <div class="svc-icon orange"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <span>Fixed Deposit</span>
+    </a>
+    <a href="#" class="service-item">
+      <div class="svc-icon purple"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+      <span>Apply Loan</span>
+    </a>
+    <a href="#" class="service-item">
+      <div class="svc-icon gold"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <span>Statement</span>
+    </a>
+    <a href="#" class="service-item">
+      <div class="svc-icon red"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+      <span>Block Card</span>
+    </a>
+    <a href="#" class="service-item">
+      <div class="svc-icon teal"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+      <span>Cheque Book</span>
+    </a>
+    <a href="#" class="service-item">
+      <div class="svc-icon navy"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <span>More</span>
+    </a>
+  </div>
+
+  <!-- Two-column: Transactions + Quick Links -->
+  <div class="two-col">
+    <!-- Recent Transactions -->
+    <div class="card">
+      <div class="card-hd">
+        <h3>
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Recent Transactions
+        </h3>
+        <a href="#" class="view-all">View All →</a>
+      </div>
+      <div class="card-body" style="padding:0 22px">
+        <div class="txn-list">
+          <div class="txn-item">
+            <div class="txn-ic cr"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div>
+            <div class="txn-info"><div class="txn-name">Salary Credit — Infosys Ltd</div><div class="txn-date">28 Apr 2026 · 09:00 AM</div></div>
+            <div class="txn-amt cr">+ ₹65,000</div>
+          </div>
+          <div class="txn-item">
+            <div class="txn-ic dr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></div>
+            <div class="txn-info"><div class="txn-name">EMI — HDFC Home Loan</div><div class="txn-date">27 Apr 2026 · 10:15 AM</div></div>
+            <div class="txn-amt dr">− ₹12,500</div>
+          </div>
+          <div class="txn-item">
+            <div class="txn-ic dr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></div>
+            <div class="txn-info"><div class="txn-name">BESCOM Electricity Bill</div><div class="txn-date">26 Apr 2026 · 03:42 PM</div></div>
+            <div class="txn-amt dr">− ₹1,240</div>
+          </div>
+          <div class="txn-item">
+            <div class="txn-ic cr"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div>
+            <div class="txn-info"><div class="txn-name">UPI — Rahul Sharma</div><div class="txn-date">25 Apr 2026 · 07:30 PM</div></div>
+            <div class="txn-amt cr">+ ₹5,000</div>
+          </div>
+          <div class="txn-item">
+            <div class="txn-ic dr"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></div>
+            <div class="txn-info"><div class="txn-name">Amazon.in Purchase</div><div class="txn-date">24 Apr 2026 · 11:55 AM</div></div>
+            <div class="txn-amt dr">− ₹3,499</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-hd"><h3><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Quick Links</h3></div>
+        <div class="card-body">
+          <div class="quick-links">
+            <a href="#" class="ql-item">
+              <div class="ql-ic navy"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07"/><path d="M5.07 5.07a19.79 19.79 0 0113.86 13.86"/></svg></div>
+              <span class="ql-txt">Customer Care</span><span class="ql-arrow">›</span>
+            </a>
+            <a href="#" class="ql-item">
+              <div class="ql-ic gold"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+              <span class="ql-txt">Branch &amp; ATM Locator</span><span class="ql-arrow">›</span>
+            </a>
+            <a href="#" class="ql-item">
+              <div class="ql-ic green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span class="ql-txt">Apply for Credit Card</span><span class="ql-arrow">›</span>
+            </a>
+            <a href="#" class="ql-item">
+              <div class="ql-ic navy"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+              <span class="ql-txt">Raise a Complaint</span><span class="ql-arrow">›</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Security notice -->
+      <div class="card">
+        <div class="card-body" style="background:var(--gold-pale);border-radius:14px">
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="font-size:20px">🔒</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">Security Reminder</div>
+              <div style="font-size:12px;color:var(--txt2);line-height:1.5">INB will never ask for your PIN, OTP or password. Beware of phishing attempts.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.main -->
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <p>© 2026 <span>NexaBank</span> · All rights reserved · IFSC: NXBK0001001 · Toll-Free: 1800-XXX-XXXX</p>
+</footer>
+
+<!-- ── CHAT FAB ── -->
+<div class="chat-fab" onclick="toggleChat()" id="chatFab" title="Chat with INB Assistant">
+  <div class="chat-fab-ring">
+    <img src="/static/nexabank_assistant.png" alt="INB Assistant" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <svg style="display:none;width:28px;height:28px;fill:white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" opacity=".3"/><path d="M12 6c-1.1 0-2 .9-2 2v1H8v2h8v-2h-2V8c0-1.1-.9-2-2-2zm-4 7v4h8v-4H8z"/></svg>
+    <div class="fab-ping"></div>
+  </div>
+  <div class="chat-fab-label">NexaBank AI</div>
+</div>
+
+<!-- ── CHAT WIDGET ── -->
+<div class="chat-widget" id="chatWidget">
+  <div class="cw-header">
+    <div class="cw-av">
+      <img src="/static/nexabank_assistant.png" alt="INB Assistant">
+    </div>
+    <div class="cw-info">
+      <div class="cw-name">NexaBank Virtual Assistant</div>
+      <div class="cw-status"><div class="cw-dot"></div><span>Online · Ready to help</span></div>
+    </div>
+    <button class="cw-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="cw-msgs" id="cwMsgs"></div>
+  <div class="cw-footer">
+    <div class="cw-input-row">
+      <input type="text" id="cwInput" placeholder="Ask me anything about banking..." autocomplete="off" onkeydown="if(event.key==='Enter')cwSend()">
+      <button class="cw-send" onclick="cwSend()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Date/time
+function updateClock(){
+  const n=new Date();
+  document.getElementById('heroDate').textContent=n.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('heroTime').textContent=n.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+}
+updateClock();setInterval(updateClock,30000);
+
+// Chat widget
+let chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatWidget').classList.toggle('open',chatOpen);
+  if(chatOpen&&document.getElementById('cwMsgs').children.length===0){
+    cwAddMsg('bot','Hello! I\'m your NexaBank Virtual Assistant.\n\nHow can I assist you today? You can ask me about:\n• Account balance & statements\n• Fund transfers & payments\n• Loan enquiries\n• Fixed deposits\n• And much more!');
+  }
+}
+
+function cwAddMsg(who,txt){
+  const msgs=document.getElementById('cwMsgs');
+  const row=document.createElement('div');
+  row.className='msg-row '+who;
+  if(who==='bot'){
+    row.innerHTML=`<div class="msg-av"><img src="/static/nexabank_assistant.png" alt="bot" onerror="this.parentNode.innerHTML='🤖'"></div><div class="msg-bbl">${txt.replace(/\n/g,'<br>')}</div>`;
+  } else {
+    row.innerHTML=`<div class="msg-bbl">${txt}</div>`;
+  }
+  msgs.appendChild(row);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function cwShowTyping(){
+  const msgs=document.getElementById('cwMsgs');
+  const t=document.createElement('div');
+  t.className='msg-row bot';t.id='cwTyping';
+  t.innerHTML='<div class="msg-av"><img src="/static/nexabank_assistant.png" alt="bot" onerror="this.parentNode.innerHTML=\'🤖\'"></div><div class="typing-bbl"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>';
+  msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+}
+function cwHideTyping(){const t=document.getElementById('cwTyping');if(t)t.remove();}
+
+async function cwSend(){
+  const inp=document.getElementById('cwInput');
+  const msg=inp.value.trim();if(!msg)return;
+  inp.value='';cwAddMsg('user',msg);cwShowTyping();
+  try{
+    const r=await fetch('/webhook',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sender:'home-user',message:msg})});
+    const data=await r.json();cwHideTyping();
+    if(data&&data.length>0){
+      data.forEach(d=>{if(d.text)cwAddMsg('bot',d.text);});
+    } else {
+      cwAddMsg('bot','I apologise, I could not process that. Please try again.');
+    }
+  }catch{cwHideTyping();cwAddMsg('bot','⚠️ Connection issue. Please ensure the banking server is running.');}
+}
+</script>
+</body>
+</html>

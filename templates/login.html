@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexaBank | Secure Login</title>
+    <meta name="description" content="Log in securely to your NexaBank internet banking portal.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy: #003366;
+            --navy-dark: #001F40;
+            --gold: #C9A84C;
+            --gold-light: #F0D688;
+            --white: #ffffff;
+            --off-white: #F4F7FC;
+            --text-dark: #1A2340;
+            --text-mid: #4A5568;
+            --text-light: #94A3B8;
+            --border: #D1DCF0;
+            --error: #DC2626;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: var(--off-white);
+        }
+        /* ── LEFT PANEL ── */
+        .left-panel {
+            flex: 1.2;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .left-panel .bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+        .left-panel .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(0,31,64,0.92) 0%,
+                rgba(0,51,102,0.80) 50%,
+                rgba(0,70,140,0.72) 100%
+            );
+            z-index: 1;
+        }
+        .left-content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 56px;
+            display: flex;
+            flex-direction: column;
+            gap: 44px;
+            max-width: 520px;
+            width: 100%;
+        }
+        .bank-logo-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo-icon-wrap {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+            flex-shrink: 0;
+        }
+        .logo-icon-wrap svg { width: 32px; height: 32px; fill: var(--navy-dark); }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-text .inb {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+        .logo-text .full-name {
+            font-size: 11px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+        .left-tagline { display: flex; flex-direction: column; gap: 14px; }
+        .left-tagline h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.25;
+        }
+        .left-tagline h2 span { color: var(--gold-light); }
+        .left-tagline p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.68);
+            line-height: 1.7;
+            max-width: 380px;
+        }
+        .trust-badges { display: flex; flex-direction: column; gap: 14px; }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .trust-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .trust-icon svg { width: 20px; height: 20px; stroke: var(--gold-light); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .trust-text .trust-title { font-size: 13px; font-weight: 600; color: var(--white); }
+        .trust-text .trust-desc { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+
+        /* ── RIGHT PANEL ── */
+        .right-panel {
+            flex: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 48px;
+            background: var(--off-white);
+            min-height: 100vh;
+        }
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            animation: slideUp 0.6s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .login-box-header { margin-bottom: 32px; }
+        .login-box-header .mini-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--navy);
+            padding: 8px 16px 8px 10px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+        }
+        .login-box-header .mini-logo .dot {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box-header .mini-logo .dot svg { width: 16px; height: 16px; fill: var(--navy-dark); }
+        .login-box-header .mini-logo span { font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: 1px; }
+        .login-box-header h1 { font-size: 26px; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; }
+        .login-box-header p { font-size: 14px; color: var(--text-mid); }
+
+        /* Error box */
+        .error-msg {
+            display: none;
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--error);
+            margin-bottom: 20px;
+            animation: shake 0.4s ease;
+        }
+        .error-msg.show { display: flex; align-items: center; gap: 8px; }
+        @keyframes shake {
+            0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 50%{transform:translateX(6px)} 75%{transform:translateX(-4px)}
+        }
+
+        /* Form */
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 7px; }
+        .inp-wrap { position: relative; }
+        .inp-wrap .ico {
+            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+            width: 18px; height: 18px; stroke: var(--text-light); fill: none;
+            stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none;
+            transition: stroke 0.2s;
+        }
+        .inp-wrap input {
+            width: 100%;
+            padding: 13px 42px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: all 0.25s;
+        }
+        .inp-wrap input::placeholder { color: var(--text-light); }
+        .inp-wrap input:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 4px rgba(0,51,102,0.1); }
+        .inp-wrap:focus-within .ico { stroke: var(--navy); }
+        .toggle-pw {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; cursor: pointer; padding: 4px;
+            color: var(--text-light); display: flex;
+        }
+        .toggle-pw svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        input[type="password"]::-ms-reveal { display: none; }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--navy), #005099);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s;
+        }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,51,102,0.4); }
+        .login-btn:hover::before { left: 100%; }
+        .login-btn:active { transform: translateY(0); }
+        .login-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .spinner { display: none; width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; }
+        .login-btn.loading .spinner { display: block; }
+        .login-btn.loading .btn-txt { display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .demo-hint {
+            margin-top: 20px;
+            background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+            border: 1px solid #BFDBFE;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: #1E40AF;
+        }
+        .demo-hint strong { display: block; margin-bottom: 2px; font-size: 12px; }
+
+        .divider { height: 1px; background: var(--border); margin: 24px 0; }
+        .bottom-note { text-align: center; font-size: 12px; color: var(--text-light); }
+        .bottom-note a { color: var(--navy); font-weight: 600; text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 860px) {
+            .left-panel { display: none; }
+            .right-panel { flex: 1; padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ── LEFT PANEL ── -->
+    <div class="left-panel">
+        <img src="/static/nexabank_bg.png" alt="NexaBank" class="bg-img">
+        <div class="overlay"></div>
+        <div class="left-content">
+            <div class="bank-logo-row">
+                <div class="logo-icon-wrap">
+                    <svg viewBox="0 0 24 24"><path d="M3 21h18M6 18V9M10 18V9M14 18V9M18 18V9M2 9l10-6 10 6"/></svg>
+                </div>
+                <div class="logo-text">
+                    <span class="inb">NexaBank</span>
+                    <span class="full-name">Next Generation Banking</span>
+                </div>
+            </div>
+
+            <div class="left-tagline">
+                <h2>Banking reimagined for the <span>digital age</span></h2>
+                <p>Experience seamless, secure, and smart banking — anytime, anywhere with NexaBank.</p>
+            </div>
+
+            <div class="trust-badges">
+                <div class="trust-item">
+                    <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                    <div class="trust-text">
+                        <div class="trust-title">256-bit SSL Encryption</div>
+                        <div class="trust-desc">Bank-grade security on every transaction</div>
+                    </div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                    <div class="trust-text">
+                        <div class="trust-title">24×7 Banking Access</div>
+                        <div class="trust-desc">Round-the-clock services, zero downtime</div>
+                    </div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+                    <div class="trust-text">
+                        <div class="trust-title">15 Million+ Customers</div>
+                        <div class="trust-desc">Trusted by families across India</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── RIGHT PANEL ── -->
+    <div class="right-panel">
+        <div class="login-box">
+            <div class="login-box-header">
+                <div class="mini-logo">
+                    <div class="dot"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 18V9M10 18V9M14 18V9M18 18V9M2 9l10-6 10 6"/></svg></div>
+                    <span>NEXABANK</span>
+                </div>
+                <h1>Welcome to NexaBank</h1>
+                <p>Sign in to your NexaBank account securely</p>
+            </div>
+
+            <div class="error-msg" id="errMsg">
+                <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                <span id="errTxt">Invalid credentials</span>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">User ID / Customer ID</label>
+                    <div class="inp-wrap">
+                        <svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <input type="text" id="username" placeholder="Enter your User ID" autocomplete="username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="inp-wrap">
+                        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+                        <button type="button" class="toggle-pw" onclick="togglePw()" aria-label="Show/hide password">
+                            <svg viewBox="0 0 24 24" id="eyeIco"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span class="btn-txt">Sign In to NetBanking</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+
+
+
+            <div class="divider"></div>
+            <div class="bottom-note">
+                Are you an admin? <a href="/admin">Admin Portal →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('username').focus();
+
+        function togglePw() {
+            const inp = document.getElementById('password');
+            const ico = document.getElementById('eyeIco');
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                ico.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+            } else {
+                inp.type = 'password';
+                ico.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const err = document.getElementById('errMsg');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            err.classList.remove('show');
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    window.location.href = '/home';
+                } else {
+                    document.getElementById('errTxt').textContent = data.message || 'Invalid credentials';
+                    err.classList.add('show');
+                }
+            } catch {
+                document.getElementById('errTxt').textContent = 'Connection error. Please try again.';
+                err.classList.add('show');
+            }
+            btn.classList.remove('loading');
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 @echo off
-echo ========================================
-echo   ABC Bank Chat Assistant - Starting
-echo ========================================
+echo ==========================================
+echo   NexaBank Virtual Assistant - Starting
+echo ==========================================
 echo.
 
 cd /d "%~dp0"
@@ -20,8 +20,13 @@ timeout /t 30 /nobreak > nul
 REM Start Flask web server
 echo [2/2] Starting Web UI...
 echo.
-echo ========================================
-echo   Open http://localhost:5000 in browser
-echo ========================================
+echo ==========================================
+echo   NexaBank is ready!
+echo   User Portal : http://localhost:5000
+echo   Admin Panel : http://localhost:5000/admin
+echo ------------------------------------------
+echo   User login  : user / user123
+echo   Admin login : admin / admin123
+echo ==========================================
 echo.
 python app.py

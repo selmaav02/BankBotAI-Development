@@ -51,22 +51,22 @@ def init_db():
     cursor.execute("SELECT COUNT(*) FROM faqs")
     if cursor.fetchone()[0] == 0:
         default_faqs = [
-            ("What are the bank's working hours?",
-             "ABC Bank branches are open Monday to Saturday, 9:30 AM to 4:30 PM. Sunday and national holidays are off."),
-            ("How do I reset my internet banking password?",
-             "Visit the net banking portal, click 'Forgot Password', and follow the instructions. You'll need your registered mobile number for OTP verification."),
-            ("What documents are required for opening a savings account?",
+            ("What are INB's working hours?",
+             "Indian National Bank (INB) branches are open Monday to Saturday, 9:30 AM to 4:30 PM. Sunday and national holidays are closed."),
+            ("How do I reset my INB internet banking password?",
+             "Visit the INB NetBanking portal, click Forgot Password, and follow the OTP-based verification using your registered mobile number."),
+            ("What documents are required to open a savings account at INB?",
              "You need: Aadhaar Card, PAN Card, Passport-size Photograph, and Address Proof (utility bill or rent agreement)."),
-            ("What is the minimum balance for a savings account?",
-             "The minimum average quarterly balance for a regular savings account is ₹5,000. For zero-balance accounts, no minimum is required."),
-            ("How can I block a lost or stolen card?",
-             "You can block your card immediately through the mobile app, by calling our 24/7 helpline at 1800-123-456, or by chatting with this assistant."),
+            ("What is the minimum balance for an INB savings account?",
+             "The minimum average quarterly balance for a regular INB savings account is Rs.5,000. Zero-balance accounts are also available."),
+            ("How can I block a lost or stolen INB card?",
+             "You can block your INB card immediately through the mobile app, by calling our 24/7 helpline at 1800-INB-XXXX, or by chatting with this assistant."),
         ]
         cursor.executemany("INSERT INTO faqs (question, answer) VALUES (?, ?)", default_faqs)
 
     conn.commit()
     conn.close()
-    print("✅ Database initialized at:", DB_PATH)
+    print("Database initialized at:", DB_PATH)
 
 
 # ===== QUERY LOG FUNCTIONS =====
